@@ -1,17 +1,21 @@
 ## SimpleTimer - A timer library for Arduino.
 
-###Repo Notes
-infomaniac50@gmail.com
+### Uploader
+Derek Chafin  
+Jun 16, 2012  
+info<a href="http://www.google.com/recaptcha/mailhide/d?k=01OlINdKCVggEULcwNY4NTTg==&amp;c=NuRwkCvdkiHnX97lENoQ4aUrQPIek0qZKoNXiOiv8uE=" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501OlINdKCVggEULcwNY4NTTg\75\75\46c\75NuRwkCvdkiHnX97lENoQ4aUrQPIek0qZKoNXiOiv8uE\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">...</a>@gmail.com
 
-I do not own this code. I am uploading it to github.com so it can be more readily available on the internet.
+###Disclaimer
+I am pushing this library to github because I like git better than I like the Windows clipboard.
 
-### Author/Code Owner
-mromani@ottotecnica.com
+For reference this library can also be found at http://playground.arduino.cc/Code/SimpleTimer.
 
-### Copyright
+### Original Author
+Marcello Romani  
+mrom<a href="http://www.google.com/recaptcha/mailhide/d?k=01OlINdKCVggEULcwNY4NTTg==&amp;c=35t9v0kxxmeXywbgEkq2W9ogg7J-gbHsx2HD-cJD7Rc=" onclick="window.open('http://www.google.com/recaptcha/mailhide/d?k\07501OlINdKCVggEULcwNY4NTTg\75\75\46c\07535t9v0kxxmeXywbgEkq2W9ogg7J-gbHsx2HD-cJD7Rc\075', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">...</a>@ottotecnica.com  
 Copyright (c) 2010 OTTOTECNICA Italy
 
-### License
+### License - GNU LGPL 2.1+
 This library is free software; you can redistribute it
 and/or modify it under the terms of the GNU Lesser
 General Public License as published by the Free Software
