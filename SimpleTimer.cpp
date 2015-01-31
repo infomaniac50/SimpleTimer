@@ -27,8 +27,13 @@
 #include "SimpleTimer.h"
 
 
+// Select time function:
+//static inline unsigned long elapsed() { return micros(); }
+static inline unsigned long elapsed() { return millis(); }
+
+
 SimpleTimer::SimpleTimer() {
-    unsigned long current_millis = millis();
+    unsigned long current_millis = elapsed();
 
     for (int i = 0; i < MAX_TIMERS; i++) {
         enabled[i] = false;
@@ -46,7 +51,7 @@ void SimpleTimer::run() {
     unsigned long current_millis;
 
     // get current time
-    current_millis = millis();
+    current_millis = elapsed();
 
     for (i = 0; i < MAX_TIMERS; i++) {
 
@@ -56,10 +61,13 @@ void SimpleTimer::run() {
         if (callbacks[i]) {
 
             // is it time to process this timer ?
+            // see http://arduino.cc/forum/index.php/topic,124048.msg932592.html#msg932592
+
             if (current_millis - prev_millis[i] >= delays[i]) {
 
                 // update time
-                prev_millis[i] = current_millis;
+                //prev_millis[i] = current_millis;
+                prev_millis[i] += delays[i];
 
                 // check if the timer callback has to be executed
                 if (enabled[i]) {
@@ -118,7 +126,7 @@ int SimpleTimer::findFirstFreeSlot() {
         }
     }
 
-    // we should never reach this point...
+    // no free slots found
     return -1;
 }
 
@@ -131,11 +139,15 @@ int SimpleTimer::setTimer(long d, timer_callback f, int n) {
         return -1;
     }
 
+    if (f == NULL) {
+        return -1;
+    }
+
     delays[freeTimer] = d;
     callbacks[freeTimer] = f;
     maxNumRuns[freeTimer] = n;
     enabled[freeTimer] = true;
-    prev_millis[freeTimer] = millis();
+    prev_millis[freeTimer] = elapsed();
 
     numTimers++;
 
@@ -153,8 +165,8 @@ int SimpleTimer::setTimeout(long d, timer_callback f) {
 }
 
 
-void SimpleTimer::deleteTimer(int numTimer) {
-    if (numTimer >= MAX_TIMERS) {
+void SimpleTimer::deleteTimer(int timerId) {
+    if (timerId >= MAX_TIMERS) {
         return;
     }
 
@@ -163,13 +175,18 @@ void SimpleTimer::deleteTimer(int numTimer) {
         return;
     }
 
-    callbacks[numTimer] = 0;
-    enabled[numTimer] = false;
-    delays[numTimer] = 0;
-    numRuns[numTimer] = 0;
+    // don't decrease the number of timers if the
+    // specified slot is already empty
+    if (callbacks[timerId] != NULL) {
+        callbacks[timerId] = 0;
+        enabled[timerId] = false;
+        toBeCalled[timerId] = DEFCALL_DONTRUN;
+        delays[timerId] = 0;
+        numRuns[timerId] = 0;
 
-    // update number of timers
-    numTimers--;
+        // update number of timers
+        numTimers--;
+    }
 }
 
 
@@ -179,7 +196,7 @@ void SimpleTimer::restartTimer(int numTimer) {
         return;
     }
 
-    prev_millis[numTimer] = millis();
+    prev_millis[numTimer] = elapsed();
 }
 
 
