@@ -24,9 +24,8 @@
  *
  */
 
-
-#ifndef SIMPLETIMER_H
-#define SIMPLETIMER_H
+// Non-Standard but supported by just about everything https://en.wikipedia.org/wiki/Pragma_once
+#pragma once
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include <Arduino.h>
@@ -120,5 +119,3 @@ private:
     // actual number of timers in use
     int numTimers;
 };
-
-#endif
